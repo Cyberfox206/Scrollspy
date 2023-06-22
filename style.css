@@ -68,7 +68,14 @@ section{
   height: 100vh;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   text-transform: uppercase;
-  background-color: gray;
+}
+
+.paralax{ 
+  background:url(https://static.vecteezy.com/system/resources/previews/002/962/647/original/sunset-landscape-illustration-with-mountain-and-pine-forest-vector.jpg );
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 section:nth-child(odd){
