@@ -1,20 +1,28 @@
-let section = document.getElementsByClassName("sec");
-let btn = document.getElementsByClassName("btn_home");
+let section = document.querySelectorAll(".sec");
+let btn_tab = document.getElementsByClassName("btn_home");
+const header = document.querySelector('header');
+const threshold = 0.7;
 
-window.addEventListener("scroll",()=>{
-    for (let i = 0; i < section.length; i++) {
-        let top = window.scrollY;
-        let offset = section[i].offsetTop -100;
-        let height = section[i].offsetHeight;
-        let id = section[i].getAttribute("id")
-        if (top >= offset && top < offset + height ) {
-            for (let j = 0; j < btn.length; j++) {
-                if (btn[j].getAttribute("href") === `#${id}`) {
-                    btn[j].classList.add("active")
-                }else{
-                    btn[j].classList.remove("active");
-                }
-            }
+const btns = function (elem, btn_tab) {
+    for (let i = 0; i < btn_tab.length; i++) {
+        if (btn_tab[i].classList.contains("active")) {
+            btn_tab[i].classList.remove("active");
         }
     }
-})
+    document.querySelector(`a[href="#${elem}"]`).classList.add("active");
+}
+
+const observer = new IntersectionObserver((entries)=>{
+    entries.forEach((entry)=>{
+        if (entry.intersectionRatio > threshold) {
+            btns(entry.target.getAttribute("id"), btn_tab);
+        }   
+    })
+},{
+    threshold:threshold,
+    rootMargin:`-${header.clientHeight}px 0px`
+});
+
+section.forEach(e => {
+    observer.observe(e);
+});
